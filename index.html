@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f9fd">
+  <title>MEEM Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">M⚙</div>
+        <div>
+          <strong>MEEM Hub</strong>
+          <span>Mechanical Engineering</span>
+          <span>Energetics & Maintenance</span>
+        </div>
+      </div>
+
+      <nav class="side-nav" aria-label="Navigation">
+        <button class="nav-item active" data-view="home"><span>⌂</span>Accueil</button>
+        <button class="nav-item" data-view="modules"><span>▦</span>Mes Modules</button>
+        <button class="nav-item" data-view="library"><span>▣</span>Bibliothèque</button>
+        <button class="nav-item" data-view="tasks"><span>☑</span>Quiz & Exercices</button>
+        <button class="nav-item" data-view="planning"><span>▦</span>Planning</button>
+        <button class="nav-item" data-view="stats"><span>▥</span>Statistiques</button>
+        <button class="nav-item" data-view="badges"><span>✪</span>Badges</button>
+        <button class="nav-item" data-view="profile"><span>⚙</span>Paramètres</button>
+      </nav>
+
+      <div class="sidebar-quote">« La discipline aujourd'hui construit la liberté de demain. »</div>
+      <div class="version-card">
+        <div class="mini-logo">M⚙</div>
+        <div><strong>MEEM Hub</strong><span>v4.0</span></div>
+        <i></i><small>En ligne</small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="mobile-header">
+        <div class="brand-mark small">M⚙</div>
+        <strong>MEEM Hub</strong>
+        <button id="notifyBtn" class="icon-btn">♧</button>
+      </header>
+
+      <section id="view-home" class="view active-view">
+        <div class="welcome-banner">
+          <div>
+            <p>Bonjour, <strong id="userName">Hatem</strong> 👑</p>
+            <h1>Ingénieur en devenir.</h1>
+            <h2>Chaque effort compte.</h2>
+          </div>
+          <div class="banner-note">« L’ingénierie, c’est transformer<br>des idées en solutions concrètes. »</div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card blue"><span class="stat-icon">🎓</span><div><small>Moyenne générale</small><b>16.4 <em>/ 20</em></b><p>Objectif : ≥ 16 ↗</p></div></article>
+          <article class="stat-card yellow"><span class="stat-icon">📖</span><div><small>Modules validés</small><b>4 <em>/ 9</em></b><p>Cette année</p></div><span class="progress"><i style="width:44%"></i></span></article>
+          <article class="stat-card green"><span class="stat-icon">☑</span><div><small>TD / TP</small><b>18.5 <em>/ 20</em></b><p>Moyenne actuelle</p></div></article>
+          <article class="stat-card pink"><span class="stat-icon">🎯</span><div><small>Objectif actuel</small><b>Semestre 6</b><p>8 fév. → 20 avr.</p></div><span class="progress"><i style="width:58%"></i></span></article>
+        </div>
+
+        <section class="panel">
+          <div class="section-head"><h2>📚 Mes Modules</h2><button data-view="modules">Voir tous →</button></div>
+          <div id="homeModules" class="module-grid"></div>
+        </section>
+
+        <section class="panel">
+          <div class="section-head"><h2>📁 Bibliothèque rapide</h2><button data-view="library">Voir tout →</button></div>
+          <div class="quick-library">
+            <button data-filter="Cours">📕<strong>Notes de cours</strong><small>PDF · 12 fichiers</small></button>
+            <button data-filter="TD">📝<strong>Exercices corrigés</strong><small>PDF · 8 fichiers</small></button>
+            <button data-filter="Examens">📋<strong>Sujets d'examens</strong><small>PDF · 15 fichiers</small></button>
+            <button>▶️<strong>Vidéos & Tutos</strong><small>Lien externe</small></button>
+            <button>⚙️<strong>Outils & Logiciels</strong><small>Liens utiles</small></button>
+          </div>
+        </section>
+      </section>
+
+      <section id="view-modules" class="view">
+        <div class="page-title"><button class="back-home" data-view="home">←</button><div><h1>Mes Modules</h1><p>Suivez votre progression académique</p></div><button class="icon-btn">⌕</button></div>
+        <div class="filters"><button class="active">Tous</button><button>Semestre 5</button><button>Semestre 6</button><button>Semestre 7</button></div>
+        <div id="allModules" class="module-list"></div>
+      </section>
+
+      <section id="view-library" class="view">
+        <div class="page-title"><button class="back-home" data-view="home">←</button><div><h1>Bibliothèque</h1><p>Toutes vos ressources académiques</p></div></div>
+        <div class="search-box">⌕ <input id="librarySearch" placeholder="Rechercher un fichier, une matière..."></div>
+        <div id="libraryFilters" class="filters"><button class="active" data-filter="Tous">Tous</button><button data-filter="Cours">Cours</button><button data-filter="TD">TD</button><button data-filter="TP">TP</button><button data-filter="Examens">Examens</button></div>
+        <div id="libraryGrid" class="file-grid"></div>
+      </section>
+
+      <section id="view-tasks" class="view">
+        <div class="page-title"><button class="back-home" data-view="home">←</button><div><h1>Mes tâches du jour</h1><p id="todayLabel">Aujourd'hui</p></div></div>
+        <div class="task-list">
+          <label class="task"><input type="checkbox"><span><b>Réviser Thermodynamique (chap. 3)</b><small>2h 30min</small></span><em>Cours</em></label>
+          <label class="task"><input type="checkbox"><span><b>Faire TP Transfert de chaleur</b><small>3h</small></span><em>TP</em></label>
+          <label class="task"><input type="checkbox"><span><b>Résoudre 5 exercices (Énergétique)</b><small>1h 30min</small></span><em>Exercice</em></label>
+          <label class="task"><input type="checkbox"><span><b>Lire 10 pages en anglais</b><small>45min</small></span><em>Anglais</em></label>
+        </div>
+        <div class="progress-card"><b>Progression du jour</b><div class="progress large"><i style="width:30%"></i></div><span>30%</span></div>
+      </section>
+
+      <section id="view-planning" class="view">
+        <div class="page-title"><button class="back-home" data-view="home">←</button><div><h1>Calendrier universitaire</h1><p>Planning, cours et examens</p></div></div>
+        <div class="calendar-card">
+          <div class="calendar-head"><button>‹</button><strong>Avril 2025</strong><button>›</button></div>
+          <div class="week"><span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span></div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+          <div class="legend"><span>● Cours</span><span>● TD</span><span>● TP</span><span>● Examen</span></div>
+        </div>
+      </section>
+
+      <section id="view-stats" class="view"><div class="page-title"><button class="back-home" data-view="home">←</button><div><h1>Statistiques</h1><p>Votre progression</p></div></div><div class="empty-state">📊<h2>Statistiques académiques</h2><p>Les données réelles seront connectées au backend V4.</p></div></section>
+      <section id="view-badges" class="view"><div class="page-title"><button class="back-home" data-view="home">←</button><div><h1>Badges</h1><p>Vos réussites</p></div></div><div class="badge-grid"><div>🔥<b>Assiduité</b></div><div>📘<b>Réussite TD</b></div><div>🌿<b>Esprit d'équipe</b></div><div>🎯<b>Progression</b></div></div></section>
+      <section id="view-profile" class="view"><div class="page-title"><button class="back-home" data-view="home">←</button><div><h1>Profil</h1><p>Compte et préférences</p></div></div><div class="profile-card"><div class="avatar">H</div><h2 id="profileName">Hatem</h2><p>Niveau 12 · 820 / 1000 XP</p><div class="progress large"><i style="width:82%"></i></div></div><div class="settings-list"><button>⚙ Paramètres <span>›</span></button><button>❔ Aide & Support <span>›</span></button><button>ⓘ À propos <span>›</span></button></div></section>
+
+      <nav class="bottom-nav">
+        <button class="active" data-view="home">⌂<span>Accueil</span></button>
+        <button data-view="modules">▦<span>Modules</span></button>
+        <button data-view="library">▣<span>Bibliothèque</span></button>
+        <button data-view="profile">•••<span>Plus</span></button>
+      </nav>
+    </main>
+
+    <aside class="rightbar">
+      <div class="profile-mini"><div class="avatar">H</div><div><strong id="rightName">Hatem</strong><b>Niveau 12</b><div class="progress"><i style="width:82%"></i></div><small>820 / 1000 XP</small></div><span>⚙</span></div>
+      <div class="side-stat"><b>🔥 7</b><span>jours de streak</span><b>⭐ 2450</b><span>XP total</span></div>
+      <div class="panel compact"><div class="section-head"><h3>📅 Calendrier universitaire</h3><button data-view="planning">Voir tout →</button></div><div class="mini-calendar"><b>Février 2025</b><div>2&nbsp; 4&nbsp; 3&nbsp; 4&nbsp; 5&nbsp; 1&nbsp; 7</div><div>10&nbsp; 12&nbsp; <mark>13</mark>&nbsp; 17&nbsp; 14&nbsp; 13&nbsp; 16</div><div>13&nbsp; 18&nbsp; 17&nbsp; 22&nbsp; 21&nbsp; 22&nbsp; 27</div></div></div>
+      <div class="panel compact"><div class="section-head"><h3>☑ Mes tâches du jour</h3><button data-view="tasks">Voir toutes →</button></div><p class="side-task">☐ Réviser Thermodynamique <small>Cours</small></p><p class="side-task">☐ Faire TP Transfert de chaleur <small>TP</small></p><p class="side-task">☐ Résoudre 5 exercices <small>Exercice</small></p></div>
+      <div class="panel compact"><h3>🔗 Liens rapides</h3><div class="quick-links"><button>📁 Fichiers du semestre</button><button>🧮 Calculatrice GPA</button><button>👥 Forum / Entraide</button><button>🌐 Ressources externes</button></div></div>
+    </aside>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>
